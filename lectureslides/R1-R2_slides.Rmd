@@ -1,6 +1,6 @@
 ---
 title: 'Intro to R: Day 1'
-author: "Kumar Ramanathan"
+author: "Alice Zhao"
 date: "`r Sys.Date()`"
 output: 
   revealjs::revealjs_presentation:
