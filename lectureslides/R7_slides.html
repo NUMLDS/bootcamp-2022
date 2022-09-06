@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="generator" content="pandoc">
-  <meta name="dcterms.date" content="2021-09-12" />
+  <meta name="author" content="Alice Zhao" />
   <title>Advanced R: Day 3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -508,7 +508,7 @@ style.innerHTML = style_script;
 document.getElementsByTagName('head')[0].appendChild(style);
 </script>
 
-    <script src="R7_slides_files/header-attrs-2.10/header-attrs.js"></script>
+    <script src="R7_slides_files/header-attrs-2.14/header-attrs.js"></script>
 </head>
 <body>
   <div class="reveal">
@@ -517,9 +517,8 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <section>
     <h1 class="title">Advanced R: Day 3</h1>
   <h1 class="subtitle">Data visualization with ggplot2</h1>
-    <h2 class="author"><div class="line-block">Kumar Ramanathan<br />
-(with edits by Richard Paquin Morel)</div></h2>
-    <h3 class="date">2021-09-12</h3>
+    <h2 class="author">Alice Zhao</h2>
+    <h3 class="date">September 2022</h3>
 </section>
 
 <section>
@@ -999,7 +998,8 @@ See lecture notes for details on what’s going on inside the scale function. Or
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>output, <span class="at">group=</span>source, <span class="at">fill=</span>source)) <span class="sc">+</span> </span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Energy use by day&quot;</span>, <span class="at">x=</span><span class="st">&quot;Day&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <p><img src="R7_slides_files/figure-revealjs/col%20stack-1.png" width="768" /></p>
 </section>
 <section id="example-energy-use-by-day-2" class="slide level2">
@@ -1025,7 +1025,8 @@ See lecture notes for details on what’s going on inside the scale function. Or
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>output, <span class="at">group=</span>source, <span class="at">fill=</span>source), <span class="at">position=</span><span class="st">&quot;dodge&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Energy use by day&quot;</span>, <span class="at">x=</span><span class="st">&quot;Day&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <p><img src="R7_slides_files/figure-revealjs/col%20dodge-1.png" width="768" /></p>
 </section>
 <section id="example-energy-use-by-day-pos-fill" class="slide level2">
@@ -1037,7 +1038,8 @@ See lecture notes for details on what’s going on inside the scale function. Or
 <span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="fu">aes</span>(<span class="at">x=</span>date, <span class="at">y=</span>output, <span class="at">group=</span>source, <span class="at">fill=</span>source), <span class="at">position=</span><span class="st">&quot;fill&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Energy use by day&quot;</span>, <span class="at">x=</span><span class="st">&quot;Day&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>)</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <p><img src="R7_slides_files/figure-revealjs/col%20fill-1.png" width="768" /></p>
 </section>
 <section id="shapes-and-linetypes" class="slide level2">
@@ -1071,10 +1073,11 @@ See lecture notes for details on what’s going on inside the scale function. Or
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date=</span>lubridate<span class="sc">::</span><span class="fu">date</span>(datetime)) <span class="sc">%&gt;%</span> </span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(date, group) <span class="sc">%&gt;%</span></span>
 <span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">output=</span><span class="fu">sum</span>(output))</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;date&#39;. You can override using the
+## `.groups` argument.</code></pre>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a look at our prepared data</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(long_merged_energy_regroup)</span></code></pre></div>
-<pre><code>## # A tibble: 6 x 3
+<pre><code>## # A tibble: 6 × 3
 ## # Groups:   date [1]
 ##   date       group      output
 ##   &lt;date&gt;     &lt;chr&gt;       &lt;dbl&gt;
@@ -1143,7 +1146,8 @@ See lecture notes for details on what’s going on inside the scale function. Or
 <span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle=</span><span class="st">&quot;Data collected during September 3-9&quot;</span>,</span>
 <span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x=</span><span class="st">&quot;Hour of the day&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
-<pre><code>## `summarise()` has grouped output by &#39;hour&#39;. You can override using the `.groups` argument.</code></pre>
+<pre><code>## `summarise()` has grouped output by &#39;hour&#39;. You can override using the
+## `.groups` argument.</code></pre>
 </section>
 <section id="exercise-5-average-hourly-output-by-source-2" class="slide level2">
 <h2>Exercise 5: Average hourly output by source</h2>

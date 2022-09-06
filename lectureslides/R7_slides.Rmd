@@ -1,10 +1,8 @@
 ---
 title: 'Advanced R: Day 3'
 subtitle: 'Data visualization with ggplot2'
-author: |
-  | Kumar Ramanathan 
-  | (with edits by Richard Paquin Morel)
-date: "`r Sys.Date()`"
+author: "Alice Zhao"
+date: "`r format(Sys.Date(), '%B %Y')`"
 output: 
   revealjs::revealjs_presentation:
     fig_height: 4
