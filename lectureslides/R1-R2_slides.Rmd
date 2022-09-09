@@ -71,9 +71,9 @@ The above topics are the basics you need to learn before we start working with "
 
 ## Our materials
 
-All of our materials are available at [github.com/msia/bootcamp-2021](https://www.github.com/msia/bootcamp-2021). Today, you will only need to work with two files, which are in the ZIP file linked at the top of the Github page.
+All of our materials are available at [github.com/msia/bootcamp-2022](https://www.github.com/msia/bootcamp-2022). Today, you will only need to work with two files, which are in the ZIP file linked at the top of the Github page.
 
-Starting with the R3 session on Wednesday, you will be working with a much wider set of files. On Wednesday, you will learn how to make a copy of the whole bootcamp-2021 repository using Git.
+Starting with the R3 session tomorrow, you will be working with a much wider set of files. Tomorrow, you will learn how to make a copy of the whole bootcamp-2022 repository using Git.
 
 # Basics and data types
 
