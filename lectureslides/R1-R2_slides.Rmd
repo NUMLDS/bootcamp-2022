@@ -90,7 +90,7 @@ x
 
 ## Arithmetic: exercise
 
-Open up the file `day1_exercises.R` in RStudio. <br> Do the following tasks:
+Open up the file `R1-R2_exercises.R` in RStudio. <br> Do the following tasks:
 
 -   Pick a number; save it as `x`
 -   Multiply x by 3
@@ -105,9 +105,6 @@ x <- 5
 x*3
 log(x*3)
 (log(x*3))-4
-```
-
-```{r arithmetic}
 ((log(x*3))-4)^2
 ```
 
