@@ -597,7 +597,7 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <ul>
 <li>Pick a number; save it as <code>x</code></li>
 <li>Multiply x by 3</li>
-<li>Divide x by 2</li>
+<li>Take the log of the above</li>
 <li>Subtract 4 from the above</li>
 <li>Square the above</li>
 </ul>
@@ -607,12 +607,12 @@ document.getElementsByTagName('head')[0].appendChild(style);
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">3</span></span></code></pre></div>
 <pre><code>## [1] 15</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>x<span class="sc">/</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 2.5</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(x<span class="sc">/</span><span class="dv">2</span>)<span class="sc">-</span><span class="dv">4</span></span></code></pre></div>
-<pre><code>## [1] -1.5</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>((x<span class="sc">/</span><span class="dv">2</span>)<span class="sc">-</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
-<pre><code>## [1] 2.25</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(x<span class="sc">*</span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## [1] 2.70805</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">log</span>(x<span class="sc">*</span><span class="dv">3</span>))<span class="sc">-</span><span class="dv">4</span></span></code></pre></div>
+<pre><code>## [1] -1.29195</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>((<span class="fu">log</span>(x<span class="sc">*</span><span class="dv">3</span>))<span class="sc">-</span><span class="dv">4</span>)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>## [1] 1.669134</code></pre>
 </section>
 <section id="functions" class="slide level2">
 <h2>Functions</h2>

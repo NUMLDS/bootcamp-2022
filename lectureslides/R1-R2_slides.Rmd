@@ -94,7 +94,7 @@ Open up the file `day1_exercises.R` in RStudio. <br> Do the following tasks:
 
 -   Pick a number; save it as `x`
 -   Multiply x by 3
--   Divide x by 2
+-   Take the log of the above
 -   Subtract 4 from the above
 -   Square the above
 
@@ -103,9 +103,12 @@ Open up the file `day1_exercises.R` in RStudio. <br> Do the following tasks:
 ```{r arithmetic}
 x <- 5
 x*3
-x/2
-(x/2)-4
-((x/2)-4)^2
+log(x*3)
+(log(x*3))-4
+```
+
+```{r arithmetic}
+((log(x*3))-4)^2
 ```
 
 ## Functions
