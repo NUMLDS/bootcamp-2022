@@ -525,7 +525,7 @@ long_merged_energy %>%
 
 ## Example: Energy source group, by day
 
-Task:<br>
+Task:<br>Create a line graph of the output by day, with a different line for each regrouped group (renewable, hydro, etc.)
 
 Steps:
 
@@ -673,30 +673,19 @@ long_gen %>%
 
 ## Exercise 6: Facets
 
-Task:<br>Compare generation patterns for each source in facets. Color the lines using the "group" variable in `regroup`.
+Task:<br>Alter the facet plot by:
 
-Remember:
-
-- You will need to prepare your data. Think about the variables that you need: source/type, output, and group.
-- When you pipe modified data into ggplot, remember that you are grouping in two ways: source/type through facets, and group through color.
-
-## Exercise 6: Facets
-
-```{r data prep for facets ex}
-long_gen_regroup <- long_gen %>%
-  rename(type = source) %>% 
-  merge(regroup, by="type")
-
-head(long_gen_regroup)
-```
+> - Making the line in each plot a different color
+> - Making the lines thicker
+> - Moving the legend to the bottom
 
 ## Exercise 6: Facets
 
-```{r facets ex}
-long_gen_regroup %>% ggplot() + 
-  geom_line(aes(x=datetime, y=output, group=group, col=group), size=1) + 
-  scale_color_brewer(palette="Set1", name="Type of energy source") +
-  facet_wrap(~type, scales="free") + 
+```{r facet ex}
+long_gen %>% 
+  ggplot() + 
+  geom_line(aes(x = datetime, y = output, col=source), size=1) + 
+  facet_wrap(~source, scales="free") + 
   labs(title="Generation over time, by energy source", subtitle="Hourly data from September 3-9, 2018", x="Hour", y="Output (MW)") + 
   theme(legend.position = "bottom")
 ```

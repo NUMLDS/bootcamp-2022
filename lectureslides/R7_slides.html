@@ -1052,7 +1052,7 @@ See lecture notes for details on what’s going on inside the scale function. Or
 </section>
 <section id="example-energy-source-group-by-day" class="slide level2">
 <h2>Example: Energy source group, by day</h2>
-<p>Task:<br></p>
+<p>Task:<br>Create a line graph of the output by day, with a different line for each regrouped group (renewable, hydro, etc.)</p>
 <p>Steps:</p>
 <ol type="1">
 <li class="fragment">Prepare data frame that summarizes output by date and “group” from <code>regroup</code>.</li>
@@ -1209,37 +1209,22 @@ See lecture notes for details on what’s going on inside the scale function. Or
 </section>
 <section id="exercise-6-facets" class="slide level2">
 <h2>Exercise 6: Facets</h2>
-<p>Task:<br>Compare generation patterns for each source in facets. Color the lines using the “group” variable in <code>regroup</code>.</p>
-<p>Remember:</p>
+<p>Task:<br>Alter the facet plot by:</p>
 <ul>
-<li>You will need to prepare your data. Think about the variables that you need: source/type, output, and group.</li>
-<li>When you pipe modified data into ggplot, remember that you are grouping in two ways: source/type through facets, and group through color.</li>
+<li class="fragment">Making the line in each plot a different color</li>
+<li class="fragment">Making the lines thicker</li>
+<li class="fragment">Moving the legend to the bottom</li>
 </ul>
 </section>
 <section id="exercise-6-facets-1" class="slide level2">
 <h2>Exercise 6: Facets</h2>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>long_gen_regroup <span class="ot">&lt;-</span> long_gen <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">type =</span> source) <span class="sc">%&gt;%</span> </span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(regroup, <span class="at">by=</span><span class="st">&quot;type&quot;</span>)</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(long_gen_regroup)</span></code></pre></div>
-<pre><code>##     type            datetime   output     group
-## 1 biogas 2019-09-03 00:00:00 238.9167 renewable
-## 2 biogas 2019-09-03 01:00:00 239.0000 renewable
-## 3 biogas 2019-09-03 02:00:00 239.0000 renewable
-## 4 biogas 2019-09-03 03:00:00 238.9167 renewable
-## 5 biogas 2019-09-03 04:00:00 237.9167 renewable
-## 6 biogas 2019-09-03 05:00:00 237.1667 renewable</code></pre>
-</section>
-<section id="exercise-6-facets-2" class="slide level2">
-<h2>Exercise 6: Facets</h2>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>long_gen_regroup <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>datetime, <span class="at">y=</span>output, <span class="at">group=</span>group, <span class="at">col=</span>group), <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Set1&quot;</span>, <span class="at">name=</span><span class="st">&quot;Type of energy source&quot;</span>) <span class="sc">+</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Generation over time, by energy source&quot;</span>, <span class="at">subtitle=</span><span class="st">&quot;Hourly data from September 3-9, 2018&quot;</span>, <span class="at">x=</span><span class="st">&quot;Hour&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
-<p><img src="R7_slides_files/figure-revealjs/facets%20ex-1.png" width="768" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>long_gen <span class="sc">%&gt;%</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x =</span> datetime, <span class="at">y =</span> output, <span class="at">col=</span>source), <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>source, <span class="at">scales=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">&quot;Generation over time, by energy source&quot;</span>, <span class="at">subtitle=</span><span class="st">&quot;Hourly data from September 3-9, 2018&quot;</span>, <span class="at">x=</span><span class="st">&quot;Hour&quot;</span>, <span class="at">y=</span><span class="st">&quot;Output (MW)&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
+<p><img src="R7_slides_files/figure-revealjs/facet%20ex-1.png" width="768" /></p>
 </section></section>
 <section>
 <section id="final-notes" class="title-slide slide level1">
