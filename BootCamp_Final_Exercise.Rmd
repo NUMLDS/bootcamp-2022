@@ -1,0 +1,82 @@
+---
+title: "Bootcamp R7"
+output: html_document
+date: "2022-09-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readr)
+ca_energy_imports <- read_csv("data/ca_energy_imports.csv")
+View(ca_energy_imports)
+```
+
+```{r}
+ggplot(data= gapminder07)+
+  geom_point(mapping = aes(x = gdpPercap, y= log(pop)))
+             + labs(title="relation")
+
+ca_energy_generation %>%
+       filter(source == "large_hydro" | source == "small_hydro")%>%
+       group_by(large_hydro)%>%
+       summarise(output = sum(output))%>%
+       ggplot()+
+       geom_col(aes(x=datetime, y = output))
+
+ca_energy_generation %>%
+  group_by(datetime)%>%
+  summarise(output = sum(coal))%>%
+  ggplot()+
+  geom_col(aes (x = datetime, y = output), size = 1, col =)+ labs(title = "eee")
+
+ca_energy_generation %>%
+  pivot_long
+```
+
+# 1.Data Imports
+```{r}
+counties <- read.csv("data/nys_acs.csv", stringsAsFactors = FALSE)
+schools <- read.csv("data/nys_schools.csv", stringsAsFactors = FALSE)
+```
+
+
+# 2.Data Cleaning
+```{r}
+library(naniar)
+library(dplyr)
+#schools %>% replace_with_na_all(replace = list(x = -99))
+schools1 <- schools %>%
+  mutate(total_enroll = na_if(total_enroll, -99)) %>% 
+  mutate(per_free_lunch = na_if(per_reduced_lunch, -99)) %>%
+  mutate(per_reduced_lunch = na_if(per_reduced_lunch, -99)) %>%
+  mutate(per_lep = na_if(per_lep, -99)) %>%
+  mutate(mean_ela_score = na_if(mean_ela_score, -99)) %>%
+  mutate(mean_math_score = na_if(mean_math_score, -99)) 
+#schools2 <- schools %>% mutate(across(where(is.numeric),~na_if(.,-99))) %>%  drop_na()
+
+## Normalize Test Score and Merge
+
+# Make calculation manually
+scores_std = schools %>%
+              select(year, contains("score")) %>%
+              group_by(year) %>%
+              summarize(ela_mean = mean(mean_ela_score, na.rm=TRUE),
+                        math_mean = mean(mean_math_score, na.rm=TRUE),
+                        ela_sd = sd(mean_ela_score, na.rm=TRUE),
+                        math_sd = sd(mean_math_score, na.rm=TRUE))
+
+```
+
+# 3. Merge Two Tables
+```{r}
+# Create z-score columns
+schools_all = inner_join(schools, scores_std, by="year")
+schools_all = mutate(schools_all,
+                     ela_z_score = (mean_ela_score-ela_mean)/ela_sd,
+                     math_z_score = (mean_math_score-math_mean)/math_sd)
+
+# Check results
+View(schools_all)
+View(filter(schools_all, year==2017))
+```
+
