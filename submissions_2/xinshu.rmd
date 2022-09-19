@@ -1,0 +1,81 @@
+---
+title: "final_exercise.rmd"
+author: "Xin Shu"
+output: html_document
+date: "2022-09-19"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 1. Data Imports
+import nyschool and county data
+```{r data_imports}
+schools = read.csv("nys_schools.csv", stringsAsFactors = F)
+counties = read.csv("nys_acs.csv", stringsAsFactors = F)
+```
+
+## 2. Explore Data
+```{r}
+summary(schools)
+# summary(counties)
+# str(schools)
+# str(counties)
+# sum(is.na(schools))
+# plot(schools)
+```
+
+## 3. Clean Data
+```{r}
+schools_clean = schools
+counties$poverty_group<-NA
+counties$poverty_group[counties$median_household_income<46347]<-'Low'
+counties$poverty_group[counties$median_household_income>=46347 &
+                         counties$median_household_income<56448]<-'Medium'
+counties$poverty_group[counties$median_household_income>=56448]<-'High'
+
+# for i in schools2.
+for (i in c("per_free_lunch","per_reduced_lunch","per_lep")) {
+  schools_clean[i][schools_clean[i] > 1 | schools_clean[i] < 0,] = NA
+}
+
+for (i in c("total_enroll","mean_ela_score","mean_math_score")) {
+  schools_clean[i][schools_clean[i] < 0,] = NA
+}
+
+
+
+# schools2['per_free_lunch'][schools2['per_free_lunch'] > 1 | schools2['per_free_lunch'] < 0,] = NA
+# schools2['per_reduced_lunch'][schools2['per_reduced_lunch'] > 1 | schools2['per_reduced_lunch'] < 0,] = NA
+# schools2['per_lep'][schools2['per_lep'] > 1 | schools2['per_lep'] < 0,] = NA
+# 
+# schools2['total_enroll'][schools2['total_enroll'] < 0,] = NA
+# schools2['mean_ela_score'][schools2['mean_ela_score'] < 0,] = NA
+# schools2['mean_math_score'][schools2['mean_math_score'] < 0,] = NA
+
+# Check results
+# View(schools_all)
+# View(filter(schools_all, year==2017))
+
+# counties[counties$median_household_income>50000,] = "high"
+
+merged_data = merge(schools_clean, counties, by = c('county_name','year'))
+merged_data$total_score = merged_data$mean_ela_score+merged_data$mean_math_score
+View(merged_data)
+```
+
+```{r}
+## data analysis
+
+# ggplot(data = merged_data) +
+#   geom_point(aes(x=per_free_lunch, y=total_score, col=county_name))
+
+ggplot(data = merged_data) +
+  geom_boxplot(aes(x=poverty_group, y=total_score))
+
+```
+
+
+
+
