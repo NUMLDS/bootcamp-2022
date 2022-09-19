@@ -1,0 +1,96 @@
+---
+title: "FinalRExercise_Cheng Yiqing"
+author: "Kelvin Cheng"
+date: "2022-09-19"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2. Data Imports
+```{r setup}
+library(readr)
+library(tidyverse)
+library(ggplot2)
+library(readr)
+nys_schools <- read_csv("/Users/kelvin/Desktop/MSiA/bootcamp/bootcamp-2022/data/nys_schools.csv")
+nys_acs <- read_csv("/Users/kelvin/Desktop/MSiA/bootcamp/bootcamp-2022/data/nys_acs.csv")
+```
+
+## 2. Data Cleaning
+```{r}
+str(nys_schools)
+head(nys_schools)
+summary(nys_schools)
+```
+
+```{r}
+nys_schools.miss <- data.frame(n=sort(sapply( nys_schools, function(x) sum( x== -99 )) ))
+nys_schools.miss
+```
+
+
+```{r}
+
+nys_schools <- nys_schools %>% 
+  mutate(across(where(is.numeric), ~na_if(.,-99))) %>% 
+  drop_na()
+nys_schools <- nys_schools[nys_schools$year != 2008 & nys_schools$year != 2017,]
+```
+
+
+
+```{r}
+groups <- quantile(nys_acs$median_household_income, probs = c(1/3, 2/3), na.rm = TRUE)
+nys_acs<- nys_acs %>%
+  mutate(poverty_level = ifelse(median_household_income < groups[1], "low",
+                               ifelse(median_household_income > groups[2], "high", "medium")))
+```
+
+
+
+```{r}
+df = merge(nys_acs, nys_schools, by.x = "county_name", by.y = "county_name") 
+```
+
+```{r}
+# For each county: total enrollment, percent of students qualifying for free or reduced price lunch, and percent of population in poverty.
+df$year.x = as.Date(ISOdate(df$year.x, 1, 1))  # beginning of year
+
+df %>%
+  mutate(year = lubridate::year(year.x)) %>%
+  group_by(county_name, year) %>%
+  summarise(sum_enroll=sum(total_enroll))
+
+df %>%
+  mutate(year = lubridate::year(year.x)) %>%
+  group_by(county_name, year) %>%
+  summarise(pre_food_yreduce =sum(per_free_lunch+per_reduced_lunch))
+
+
+```
+
+```{r, eval = FALSE}
+# Average test performance across counties with high, low, and medium poverty.
+
+colnames(df)
+df %>%
+  mutate(year = lubridate::year(year.x)) %>%
+  group_by(county_name, year, poverty_level) %>%
+  summarise(avg_test =mean(mean_math_score+mean_ela_score)) %>%
+  ggplot() +
+  geom_line(aes(year, avg_test, fill = factor(poverty_level)))
+
+```
+
+
+
+
+
+
+
+
+
+
