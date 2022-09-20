@@ -1,0 +1,95 @@
+---
+title: "Bootcamp Final exercise"
+author: "Cindy Chen Team1"
+date: "9/19/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r load_library}
+library(tidyverse)
+library(ggplot2)
+```
+
+```{r}
+data_school <- read_csv(here("data/nys_schools.csv"))
+data_country <- read_csv(here("data/nys_acs.csv"))
+```
+## Check summary and find any missing values
+```{r}
+sum(is.na(data_school))
+summary(data_school)
+sum(is.na(data_country))
+summary(data_country)
+```
+
+```{r}
+quantile(data_country$county_per_poverty, c(.33, .66)) 
+quantile(data_country$median_household_income, c(.33, .66)) 
+quantile(data_country$county_per_bach, c(.33, .66)) 
+```
+
+## Task 2
+*Getting to know your data is a critical part of data analysis. Take the time to explore the structure of the two dataframes you have imported. What types of variables are there? Is there any missing data? How can you tell? What else do you notice about the data?*
+
+We use three 
+```{r}
+pov_mean = quantile(data_country$county_per_poverty, 0.5) 
+income_mean = quantile(data_country$median_household_income, 0.5) 
+bach_mean = quantile(data_country$county_per_bach, 0.5) 
+```
+
+```{r}
+data_country$level = NA
+
+data_country$level = ifelse(data_country$county_per_poverty > pov_mean & data_country$median_household_income > income_mean & data_country$county_per_bach > bach_mean, "high", ifelse(data_country$county_per_poverty < pov_mean & data_country$median_household_income < income_mean & data_country$county_per_bach < bach_mean,"low","medium"))
+
+table(data_country$level)
+```
+
+```{r}
+income_q = quantile(data_country$median_household_income, c(1/3,2/3))
+income_q
+data_country$level_income = ifelse(data_country$median_household_income < income_q[1],"low",ifelse(data_country$median_household_income < income_q[2],"high","medium"))
+```
+## Task 6
+```{r}
+# Make calculation manually
+scores_std = data_school %>%
+              select(year, contains("score")) %>%
+              group_by(year) %>%
+              summarize(ela_mean = mean(mean_ela_score, na.rm=TRUE),
+                        math_mean = mean(mean_math_score, na.rm=TRUE),
+                        ela_sd = sd(mean_ela_score, na.rm=TRUE),
+                        math_sd = sd(mean_math_score, na.rm=TRUE))
+
+# Create z-score columns
+schools_all = inner_join(data_school, scores_std, by="year")
+schools_all = mutate(schools_all,
+                     ela_z_score = (mean_ela_score-ela_mean)/ela_sd,
+                     math_z_score = (mean_math_score-math_mean)/math_sd)
+
+# Check results
+View(schools_all)
+View(filter(schools_all, year==2017))
+```
+
+```{r}
+total = inner_join(x=schools_all,y=data_country,by = c("county_name"="county_name","year"="year"))
+```
+
+```{r}
+total$per_free_lunch = ifelse(total$per_free_lunch>1,NA,total$per_free_lunch)
+total[total==-99] <- NA
+```
+
+
+## visualization
+```{r}
+boxplot(total$per_free_lunch~total$level_income)
+boxplot(total[total$year == 2014,]$ela_z_score~total[total$year == 2014,]$level_income,outline=FALSE)
+```
+
